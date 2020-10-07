@@ -10,12 +10,18 @@
 
 		<!-- Style -->
 		<link rel="stylesheet" href="assets/CSS/style.css" />
+
+		<!-- Timer Font -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
 		<header>
 			<!-- Quiz Timer -->
 			<div class="timer">
-				<h1>Time: <span id="timerOutput">00 : 00 . 000</span></h1>
+				<h1>Time: <span id="timerOutput">00 : 00 . 00</span></h1>
 			</div>
 
 			<h1 id="questions">Welcome to The Useless Facts Quiz!</h1>
@@ -23,10 +29,10 @@
 		</header>
 		<main></main>
 
-		<!-- Stopwatch Code -->
+		<!-- Stopwatch Code - load first -->
 		<script src="assets/JS/stopwatch.js"></script>
 
-		<!-- Main Javascript -->
+		<!-- Main Javascript - load last -->
 		<script src="assets/JS/main.js"></script>
 	</body>
 </html>

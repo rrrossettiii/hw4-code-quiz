@@ -10,10 +10,10 @@ function stopwatch(elem) {
 	// Time starts at '0';
 	var time = 0;
 
-	// How often it updates (in miliseconds);
+	// How often it updates (in milliseconds);
 	var interval;
 
-	// How much time has passed (in miliseconds);
+	// How much time has passed (in milliseconds);
 	var offset;
 
 	// Time Update*
@@ -36,7 +36,7 @@ function stopwatch(elem) {
 	// - formats time to '00 : 00 . 000';
 	function timeFormatter(time) {
 		// Total Milliseconds*
-		// - plugs 'time'(in miliseconds) into the date().
+		// - plugs 'time'(in milliseconds) into the date().
 		var time = new Date(time);
 
 		// Time Strings*
@@ -46,20 +46,22 @@ function stopwatch(elem) {
 		var milliseconds = time.getMilliseconds().toString();
 
 		// Zeroes Placeholder*
-		// - 'minutes' get two places; 'seconds' get two places; 'miliseconds' gets three places;
+		// - 'minutes' get two places; 'seconds' get two places; 'milliseconds' gets three places;
 		if (minutes.length < 2) {
 			minutes = "0" + minutes;
 		}
 		if (seconds.length < 2) {
 			seconds = "0" + seconds;
 		}
-		while (milliseconds.length < 3) {
+		if (milliseconds.length < 2) {
 			milliseconds = "0" + milliseconds;
 		}
 
 		// Assemble Time*
-		// - returns all the correctly formated 'time' variables together;
-		return minutes + " : " + seconds + " . " + milliseconds;
+		// - returns all the correctly formatted 'time' variables together;
+		return (
+			minutes + " : " + seconds + " . " + milliseconds[0] + milliseconds[1]
+		);
 	}
 
 	// Start Stopwatch*

@@ -32,7 +32,7 @@ var allQuestions = {
 		C: 1,
 	},
 	q2: {
-		Q: "10-20% of power outages are caused by what animal?",
+		Q: "10-20% of power outages are caused by which of these factors?",
 		A: ["A.) Kite Flying", "B.) Pigeons", "C.) Squirrels", "D.) Toaster Ovens"],
 		C: 2,
 	},
@@ -52,8 +52,8 @@ var allQuestions = {
 		C: 3,
 	},
 	q5: {
-		Q: "what?",
-		A: ["A.)", "B.)", "C.)", "D.)"],
+		Q: "The Washington Monument is capped with which metal?",
+		A: ["A.) Aluminum", "B.) Bronze", "C.) Steel", "D.) Tin"],
 		C: 0,
 	},
 	q6: {

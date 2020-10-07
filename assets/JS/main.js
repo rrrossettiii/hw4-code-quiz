@@ -1,12 +1,12 @@
-// Timer
-//
+// Timer Function*
+// - sets timer location; creates Stopwatch; starts Stopwatch;
 function startTimer() {
-	var timeBox = document.getElementById("timeBox");
-	var timer = new Stopwatch(timeBox);
+	var timerOutput = document.querySelector("#timerOutput");
+	var timer = new stopwatch(timerOutput);
 	timer.start();
 }
 
-startTimer();
+// startTimer();
 
 // score keeper
 // high scores

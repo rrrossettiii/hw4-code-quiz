@@ -5,14 +5,17 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Useless Facts!</title>
 
+		<!-- CSS Reset -->
+		<link rel="stylesheet" href="assets/CSS/reset.css" />
+
 		<!-- Style -->
-		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="assets/CSS/style.css" />
 	</head>
 	<body>
 		<header>
 			<!-- Quiz Timer -->
-			<div>
-				<h1 id="timeBox">00 : 00 . 000</h1>
+			<div class="timer">
+				<h1>Time: <span id="timerOutput">00 : 00 . 000</span></h1>
 			</div>
 
 			<h1 id="questions">Welcome to The Useless Facts Quiz!</h1>
@@ -21,9 +24,9 @@
 		<main></main>
 
 		<!-- Stopwatch Code -->
-		<script src="Stopwatch.js"></script>
+		<script src="assets/JS/stopwatch.js"></script>
 
 		<!-- Main Javascript -->
-		<script src="script.js"></script>
+		<script src="assets/JS/main.js"></script>
 	</body>
 </html>

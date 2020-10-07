@@ -1,6 +1,8 @@
-//
-//
-function Stopwatch(elem) {
+// The Stopwatch*
+// - Output location - var timerOutput = document.getElementById('id');
+// - Create Stopwatch - var timer = new Stopwatch(timerOutput);
+// - Start Stopwatch - timer.start();
+function stopwatch(elem) {
 	// On/Off Switch*
 	// - default: off
 	this.isOn = false;
@@ -14,27 +16,27 @@ function Stopwatch(elem) {
 	// How much time has passed (in miliseconds);
 	var offset;
 
-	// Time Adder
-	// - adds time passed to time; prints formatted time to index.html;
+	// Time Update*
+	// - adds 'timePassed' to time; prints formatted time to index.html;
 	function update() {
-		time += delta();
+		time += addTime();
 		elem.textContent = timeFormatter(time);
 	}
 
 	// Time Passed*
-	// - finds current time; subtracts previous 'time' to get timePassed; resets 'offset"; sends result to update();
-	function delta() {
+	// - finds current 'time'; subtracts previous 'time' to get 'timePassed'; resets 'offset"; sends result to update();
+	function addTime() {
 		var now = Date.now();
 		var timePassed = now - offset;
 		offset = now;
 		return timePassed;
 	}
 
-	// Time Formatter
+	// Time Formatter*
 	// - formats time to '00 : 00 . 000';
 	function timeFormatter(time) {
 		// Total Milliseconds*
-		// - plugs time('in miliseconds') into the date.
+		// - plugs 'time'(in miliseconds) into the date().
 		var time = new Date(time);
 
 		// Time Strings*
@@ -44,7 +46,7 @@ function Stopwatch(elem) {
 		var milliseconds = time.getMilliseconds().toString();
 
 		// Zeroes Placeholder*
-		// - minutes get two places; seconds get two places; miliseconds gets three places;
+		// - 'minutes' get two places; 'seconds' get two places; 'miliseconds' gets three places;
 		if (minutes.length < 2) {
 			minutes = "0" + minutes;
 		}
@@ -55,13 +57,13 @@ function Stopwatch(elem) {
 			milliseconds = "0" + milliseconds;
 		}
 
-		// returns all the correctly formated time variables together.
-		//
+		// Assemble Time*
+		// - returns all the correctly formated 'time' variables together;
 		return minutes + " : " + seconds + " . " + milliseconds;
 	}
 
 	// Start Stopwatch*
-	//  - checks if Stopwatch() is 'off'; interval updates every '.0010sec'; resets 'offset'; keeps Stopwatch() switched 'on';
+	//  - checks if Stopwatch() is 'off'; 'interval' updates every '.0010sec'; resets 'offset'; keeps Stopwatch() switched 'on';
 	this.start = function () {
 		if (!this.isOn) {
 			interval = setInterval(update.bind(this), 10);
@@ -71,7 +73,7 @@ function Stopwatch(elem) {
 	};
 
 	// Stop Stopwatch*
-	// - checks if Stopwatch() is 'on'; disables interval; makes interval 'null'; turns Stopwatch() 'off';
+	// - checks if Stopwatch() is 'on'; disables 'interval'; makes interval 'null'; turns Stopwatch() 'off';
 	this.stop = function () {
 		if (this.isOn) {
 			clearInterval(interval);
@@ -81,7 +83,7 @@ function Stopwatch(elem) {
 	};
 
 	// Reset Stopwatch*
-	// - sets time back to '0';
+	// - sets 'time' back to '0';
 	this.reset = function () {
 		time = 0;
 	};

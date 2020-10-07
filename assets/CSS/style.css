@@ -3,3 +3,10 @@
 button:hover {
 	cursor: pointer;
 }
+
+/* Timer
+ */
+.timer {
+	float: right;
+	display: inline-flex;
+}

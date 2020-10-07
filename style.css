@@ -1,0 +1,5 @@
+/* Change Cursor when hovering above buttons.
+*/
+button:hover {
+	cursor: pointer;
+}

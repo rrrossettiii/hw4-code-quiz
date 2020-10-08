@@ -34,7 +34,11 @@ button:hover {
 	margin-left: 12px;
 }
 
-button {
+#results {
 	font-family: "Major Mono Display", monospace;
+	text-align: center;
+}
+
+button {
 	text-align: justify;
 }

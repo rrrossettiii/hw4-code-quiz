@@ -1,12 +1,26 @@
+// Start Button
+//
+var startBtn = document.querySelector("#startBtn");
+startBtn.addEventListener("click", startQuiz);
+
+function startQuiz() {
+	document.querySelector("#startDisplay").style.display = "none";
+	document.querySelector("#answerDisplay").style.display = "block";
+	document.querySelector("#timer").style.visibility = "visible";
+	startTimer();
+
+	console.log("started");
+}
+
 // Timer Function*
-// - sets timer location; creates Stopwatch; starts Stopwatch;
+// - sets timer location; creates timer; starts timer;
 function startTimer() {
 	var timerOutput = document.querySelector("#timerOutput");
 	var timer = new stopwatch(timerOutput);
 	timer.start();
 }
 
-// startTimer();
+let shuffledQuestions, currentQuestionIndex;
 
 // score keeper
 // high scores
@@ -103,7 +117,9 @@ var allQuestions = [
 ];
 
 function renderQuestions() {
+	// Attach info
 	var question = document.querySelector("#questions");
+	var explanations = document.querySelector("#explanations");
 	// Attach too Buttons
 	var btnA = document.querySelector("#ansA");
 	var btnB = document.querySelector("#ansB");
@@ -112,6 +128,7 @@ function renderQuestions() {
 
 	function printAll() {
 		question.textContent = allQuestions[0].Q;
+		explanations.textContent = allQuestions[0].E;
 		btnA.textContent = allQuestions[0].A[0];
 		btnB.textContent = allQuestions[0].A[1];
 		btnC.textContent = allQuestions[0].A[2];
@@ -121,36 +138,42 @@ function renderQuestions() {
 }
 renderQuestions();
 
-function shuffle(array) {
-	var temporaryValue, randomIndex;
-	var currentIndex = array.length;
+// Array Shuffler
+//
+function arrayShuffler(arrayToShuffle) {
+	// Variables - new array; how many shuffles; random index default;
+	shuffledArray = [];
+	i = arrayToShuffle.length;
+	j = 0;
 
-	// While there remain elements to shuffle...
-	while (currentIndex > 1) {
-		// Pick a remaining element...
-		randomIndex = Math.floor(Math.random() * currentIndex);
-		currentIndex -= 1;
-
-		// And swap it with the current element.
-		temporaryValue = array[currentIndex];
-		array[currentIndex] = array[randomIndex];
-		array[randomIndex] = temporaryValue;
+	// Loop - generate random index; adds this index to new array; deletes this index from 'arrayToShuffle';
+	while (i--) {
+		j = Math.floor(Math.random() * (i + 1));
+		shuffledArray.push(arrayToShuffle[j]);
+		arrayToShuffle.splice(j, 1);
 	}
-
-	return array;
+	console.log(shuffledArray);
 }
 
-allQuestions.forEach(function (G) {
-	var otherIndex;
-	var choices = question.choices;
-	var lastIndex = choices.length - 1;
-	shuffle(choices);
-	otherIndex = choices.indexOf("Other");
-	if (otherIndex >= 0) {
-		choices[otherIndex] = choices[lastIndex];
-		choices[lastIndex] = "Other";
-	}
-	console.log(choices);
-});
-// button list
-// correct/wrong
+arrayShuffler(allQuestions[0].A);
+
+// function shuffle(array) {
+//     var i = array.length,
+//         j = 0,
+//         temp;
+
+//     while (i--) {
+
+//         j = Math.floor(Math.random() * (i+1));
+
+//         // swap randomly chosen element with current element
+//         temp = array[i];
+//         array[i] = array[j];
+//         array[j] = temp;
+
+//     }
+
+//     return array;
+// }
+
+// var shuffledArray = shuffle([1,2,3,4,5,6,7,8,9,10]);

@@ -5,29 +5,76 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Useless Facts!</title>
 
-		<!-- CSS Reset -->
-		<link rel="stylesheet" href="assets/CSS/reset.css" />
-
-		<!-- Style -->
-		<link rel="stylesheet" href="assets/CSS/style.css" />
-
-		<!-- Timer Font -->
+		<!-- Monospace Font -->
 		<link
 			href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap"
 			rel="stylesheet"
 		/>
+
+		<!-- CSS Boilerplate
+		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+		<link rel="stylesheet" href="assets/CSS/normalize.css" />
+		<link rel="stylesheet" href="assets/CSS/skeleton.css" />
+
+		<!-- MyStyles -->
+		<link rel="stylesheet" href="assets/CSS/style.css" />
 	</head>
 	<body>
-		<header>
-			<!-- Quiz Timer -->
-			<div class="timer">
-				<h1>Time: <span id="timerOutput">00 : 00 . 00</span></h1>
-			</div>
+		<div class="container">
+			<header>
+				<!-- Quiz Timer -->
+				<div class="row">
+					<div class="four columns u-pull-right">
+						<p id="timer">Time: <span id="timerOutput">00 : 00 . 00</span></p>
+					</div>
+				</div>
 
-			<h1 id="questions">Welcome to The Useless Facts Quiz!</h1>
-			<p id="explanation"></p>
-		</header>
-		<main></main>
+				<!-- Display Questions -->
+				<div class="row">
+					<div class="twelve columns">
+						<h1 id="questions">Welcome to The Useless Facts Quiz!</h1>
+					</div>
+				</div>
+
+				<!-- Display Explanation -->
+				<div class="row">
+					<h3 id="explanations">Explanation</h3>
+				</div>
+			</header>
+			<main>
+				<hr />
+				<!-- Buttons -->
+				<div class="container">
+					<div class="row">
+						<div class="six columns">
+							<button class="button-primary u-full-width">
+								a.) <span id="AnsA"></span>
+							</button>
+						</div>
+						<div class="six columns">
+							<button class="button-primary u-full-width">
+								b.) <span id="AnsB"></span>
+							</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="six columns">
+							<button class="button-primary u-full-width">
+								c.) <span id="AnsC"></span>
+							</button>
+						</div>
+						<div class="six columns">
+							<button class="button-primary u-full-width">
+								d.) <span id="AnsD"></span>
+							</button>
+						</div>
+					</div>
+					<div class="row"></div>
+				</div>
+				<hr />
+			</main>
+		</div>
 
 		<!-- Stopwatch Code - load first -->
 		<script src="assets/JS/stopwatch.js"></script>

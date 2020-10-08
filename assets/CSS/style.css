@@ -37,7 +37,7 @@ button:hover {
 	visibility: hidden;
 }
 
-#results {
+#result {
 	font-family: "Major Mono Display", monospace;
 	text-align: center;
 	visibility: hidden;
@@ -50,6 +50,9 @@ button:hover {
 #answerBtn {
 	text-align: justify;
 	letter-spacing: 0;
+	white-space: nowrap;
+	display: inline-block;
+	padding: 0 12px;
 }
 
 #startBtn {

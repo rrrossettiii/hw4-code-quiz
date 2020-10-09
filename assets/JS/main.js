@@ -2,8 +2,8 @@
 // - Utility*
 // - sets timer location; creates timer; starts timer;
 function startTimer() {
-	var timerOutput = document.querySelector("#timerOutput");
-	var timer = new stopwatch(timerOutput);
+	timerOutput = document.querySelector("#timerOutput");
+	timer = new stopwatch(timerOutput);
 	timer.start();}
 
 // Array Shuffler
@@ -46,6 +46,7 @@ answerButtonArray = document.querySelectorAll("#answerBtn");
 // Start Quiz
 //  - set starting point; start display; shuffle questions; select question;
 function initiateQuiz() {
+	// 
 	indexStart = 0
 	displayStart();
 	shuffledQuestions = shuffle(allQuestions);
@@ -63,10 +64,7 @@ function selectQuestion(i) {
 		// loop - x answer text goes into x button text <span>; if clicked, check answer;
 		for (j = 0; j < shuffledAnswers.length; j++) {
 			answerDisplayArray[j].textContent = shuffledAnswers[j];
-			answerButtonArray[j].addEventListener("click", checkAnswer);
-		}
-	}
-}
+			answerButtonArray[j].addEventListener("click", checkAnswer);}}}
 
 // Check Answer
 // - whichever button triggered this event...;
@@ -80,15 +78,25 @@ function checkAnswer(event) {
 	} else {
 		// - clear display; display incorrect; *next button is loaded too*;
 		displayClear()
-		displayIncorrect();
-	}}
+		displayIncorrect();}}
 
 // Next Question
 // - add to indexStart; clear display; initiate next question; 
 function nextQuestion() {
 	indexStart++;
+	if (indexStart === shuffledQuestions.length - 1){
+		nextBtn.textContent = 'Finish'
+		// 
+	}
 	displayClear();
-	selectQuestion(indexStart);}
+	if (indexStart === shuffledQuestions.length){
+		timer.stop()
+		answerDisplay.style.visibility = 'hidden'
+		questionDisplay.textContent = 'You Win!'
+		function win(){
+		}
+	} else{selectQuestion(indexStart);}
+}
 
 // Start Display
 // - hide startBtn; display answer buttons; display timer; start timer;
@@ -131,6 +139,7 @@ function displayClear() {
 		elem.removeEventListener('click', checkAnswer)		
 		elem.classList.remove("buttonCorrect");
 		elem.classList.remove("buttonWrong");});}
+
 
 // score keeper
 // high scores

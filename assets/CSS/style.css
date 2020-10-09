@@ -23,7 +23,6 @@
 #explanationDisplay {
 	font-family: "Major Mono Display", monospace;
 	font-size: 2rem;
-	font-weight: bolder;
 	text-align: center;
 	display: block;
 	margin-left: 12px;
@@ -55,6 +54,16 @@
 	font-family: "Major Mono Display", monospace;
 	font-size: xx-large;
 	height: 86px;
+}
+
+#nextBtn {
+	display: block;
+	margin-bottom: 0;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0 20px;
+	border-radius: 25px;
+	visibility: hidden;
 }
 
 .wrongChoice {

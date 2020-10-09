@@ -18,6 +18,7 @@ function startTimer() {
 // Buttons
 startBtn.addEventListener("click", initiateQuiz);
 startBtn = document.querySelector("#startBtn");
+nextBtn = document.querySelector("#nextBtn");
 aBtn = document.querySelector("#ansA");
 bBtn = document.querySelector("#ansB");
 cBtn = document.querySelector("#ansC");
@@ -109,7 +110,7 @@ var allQuestions = [
 	{
 		Q: "Who invented the word 'nerd?'",
 		A: ["Stephen Hawking", "Earnest Hemingway", "Julius Caesar", "Dr. Seuss"],
-		C: "Stephen Hawking",
+		C: "Dr. Seuss",
 		E: "You Nerd!",
 	},
 	{
@@ -141,15 +142,26 @@ function shuffle(array) {
 	}
 	return array;
 }
+nextBtn.addEventListener("click", nextQuestion);
 
+function nextQuestion() {
+	numberOfQuestions--;
+	displayClear();
+	selectQuestion(numberOfQuestions);
+}
 //
 //
 //
+shuffledQuestions = shuffle(allQuestions);
+numberOfQuestions = shuffledQuestions.length - 1;
 //
 function initiateQuiz() {
 	startQuiz();
-	shuffledQuestions = shuffle(allQuestions);
-	for (i = 0; i < shuffledQuestions.length; i++) {
+	selectQuestion(numberOfQuestions);
+}
+
+function selectQuestion(i) {
+	if (i > -1) {
 		correctAnswer = shuffledQuestions[i].C;
 		questionDisplay.textContent = shuffledQuestions[i].Q;
 		explanationDisplay.textContent = shuffledQuestions[i].E;
@@ -159,20 +171,20 @@ function initiateQuiz() {
 			answerButtonArray.forEach(function (elem) {
 				elem.addEventListener("click", findAnswer);
 			});
-
-			function findAnswer(event) {
-				resultButton = event.currentTarget;
-				if (event.currentTarget.textContent.includes(correctAnswer)) {
-					displayCorrect();
-					event.currentTarget.classList.remove("buttonWrong");
-					event.currentTarget.classList.add("buttonCorrect");
-				} else {
-					displayIncorrect();
-					event.currentTarget.classList.remove("buttonCorrect");
-					event.currentTarget.classList.add("buttonWrong");
-				}
-			}
 		}
+	}
+}
+
+function findAnswer(event) {
+	resultButton = event.currentTarget;
+	if (event.currentTarget.textContent.includes(correctAnswer)) {
+		displayCorrect();
+		event.currentTarget.classList.remove("buttonWrong");
+		event.currentTarget.classList.add("buttonCorrect");
+	} else {
+		displayIncorrect();
+		event.currentTarget.classList.remove("buttonCorrect");
+		event.currentTarget.classList.add("buttonWrong");
 	}
 }
 
@@ -187,18 +199,28 @@ function initiateQuiz() {
 
 function displayCorrect() {
 	// select #result; change #result; display #result;
+	nextBtn.style.visibility = "visible";
 	resultDisplay.textContent = "Correct";
-	resultDisplay.classList.remove("wrongChoice");
-	explanationDisplay.classList.remove("wrongChoice");
 	resultDisplay.classList.add("correctChoice");
 	explanationDisplay.classList.add("correctChoice");
 }
 
 function displayIncorrect() {
 	// select #result; change #result; display #result;
+	nextBtn.style.visibility = "visible";
 	resultDisplay.textContent = "Wrong";
-	resultDisplay.classList.remove("correctChoice");
-	explanationDisplay.classList.remove("correctChoice");
 	resultDisplay.classList.add("wrongChoice");
 	explanationDisplay.classList.add("wrongChoice");
+}
+
+function displayClear() {
+	nextBtn.style.visibility = "hidden";
+	resultDisplay.classList.remove("correctChoice");
+	explanationDisplay.classList.remove("correctChoice");
+	resultDisplay.classList.remove("wrongChoice");
+	explanationDisplay.classList.remove("wrongChoice");
+	answerButtonArray.forEach(function (elem) {
+		elem.classList.remove("buttonCorrect");
+		elem.classList.remove("buttonWrong");
+	});
 }

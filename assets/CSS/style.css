@@ -6,7 +6,7 @@ button:hover {
 
 /* Timer Wrapper
  */
-#timer {
+#timerDisplay {
 	display: inline-block;
 	font-family: "Major Mono Display", monospace;
 	text-align: right;
@@ -20,7 +20,7 @@ button:hover {
 
 /* Questions
  */
-#questions {
+#questionDisplay {
 	font-family: "Major Mono Display", monospace;
 	text-align: center;
 	margin-top: 12px;
@@ -28,16 +28,18 @@ button:hover {
 
 /* Explanations
  */
-#explanations {
+#explanationDisplay {
 	font-family: "Major Mono Display", monospace;
-	text-align: justify;
-	display: inline-block;
+	font-size: 2rem;
+	font-weight: bolder;
+	text-align: center;
+	display: block;
 	margin-left: 12px;
 	letter-spacing: 0;
 	visibility: hidden;
 }
 
-#result {
+#resultDisplay {
 	font-family: "Major Mono Display", monospace;
 	text-align: center;
 	visibility: hidden;
@@ -62,5 +64,25 @@ button:hover {
 	height: 86px;
 }
 
-/* #startDisplay {
-} */
+.buttonCorrect {
+	color: white;
+	border-color: green;
+	background-color: green;
+}
+.buttonCorrect:hover {
+	color: green;
+	border-color: green;
+	background-color: white;
+}
+
+.buttonWrong {
+	color: white;
+	border-color: red;
+	background-color: red;
+}
+
+.buttonWrong:hover {
+	color: red;
+	border-color: red;
+	background-color: white;
+}

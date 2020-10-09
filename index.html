@@ -13,88 +13,97 @@
 
 		<!-- CSS Boilerplate
 		–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-
 		<link rel="stylesheet" href="assets/CSS/normalize.css" />
 		<link rel="stylesheet" href="assets/CSS/skeleton.css" />
 
 		<!-- MyStyles -->
 		<link rel="stylesheet" href="assets/CSS/style.css" />
+
+		<!-- Stopwatch Code - load first -->
+		<script defer src="assets/JS/stopwatch.js"></script>
+
+		<!-- Main Javascript - load last -->
+		<script defer src="assets/JS/main.js"></script>
 	</head>
 	<body>
 		<div class="container">
 			<header>
-				<!-- Quiz Timer -->
 				<div class="row">
 					<div class="four columns u-pull-right">
-						<p id="timer">Time: <span id="timerOutput">00 : 00 . 00</span></p>
+						<!-- Quiz Timer -->
+						<p id="timerDisplay">
+							Time: <span id="timerOutput">00 : 00 . 00</span>
+						</p>
 					</div>
 				</div>
 
-				<!-- Display Questions -->
 				<div class="row">
 					<div class="twelve columns">
-						<h1 id="questions">Welcome to The Useless Facts Quiz!</h1>
+						<!-- Questions Display -->
+						<h1 id="questionDisplay">Welcome to The Useless Facts Quiz!</h1>
 					</div>
 				</div>
 
-				<!-- Display Explanation -->
-				<div class="row">
-					<h4 id="explanations">Explanation</h4>
+				<div class="container">
+					<div class="row">
+						<!-- Explanation Display -->
+						<h4 id="explanationDisplay">Explanation</h4>
+					</div>
 				</div>
 			</header>
 
-			<main>
-				<hr />
-				<!-- Start Button -->
-				<div id="startDisplay" class="container">
-					<div class="row">
-						<div class="twelve columns">
-							<button id="startBtn" class="button-primary u-full-width">
-								Start
-							</button>
-						</div>
-					</div>
-				</div>
+			<hr />
 
-				<!-- Answer Buttons -->
-				<div id="answerDisplay" class="container">
-					<div class="row">
-						<div class="six columns">
-							<button id="answerBtn" class="button-primary u-full-width">
-								a.) - <span id="ansA"></span>
-							</button>
-						</div>
-						<div class="six columns">
-							<button id="answerBtn" class="button-primary u-full-width">
-								b.) - <span id="ansB"></span>
-							</button>
-						</div>
-					</div>
-					<div class="row">
-						<div class="six columns">
-							<button id="answerBtn" class="button-primary u-full-width">
-								c.) - <span id="ansC"></span>
-							</button>
-						</div>
-						<div class="six columns">
-							<button id="answerBtn" class="button-primary u-full-width">
-								d.) - <span id="ansD"></span>
-							</button>
-						</div>
-					</div>
-					<div class="row"></div>
-				</div>
-				<hr />
+			<!-- Start Display -->
+			<div id="startDisplay" class="container">
 				<div class="row">
-					<h3 id="result">Result</h3>
+					<div class="twelve columns">
+						<!-- Start Button -->
+						<button id="startBtn" class="button-primary u-full-width">
+							Start
+						</button>
+					</div>
 				</div>
-			</main>
+			</div>
+
+			<!-- Answer Display -->
+			<div id="answerDisplay" class="container">
+				<div class="row">
+					<div class="six columns">
+						<!-- A Button -->
+						<button id="answerBtn" class="button-primary u-full-width">
+							a.) - <span id="ansA"></span>
+						</button>
+					</div>
+					<div class="six columns">
+						<!-- B Button -->
+						<button id="answerBtn" class="button-primary u-full-width">
+							b.) - <span id="ansB"></span>
+						</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="six columns">
+						<!-- C Button -->
+						<button id="answerBtn" class="button-primary u-full-width">
+							c.) - <span id="ansC"></span>
+						</button>
+					</div>
+					<div class="six columns">
+						<!-- D Button -->
+						<button id="answerBtn" class="button-primary u-full-width">
+							d.) - <span id="ansD"></span>
+						</button>
+					</div>
+				</div>
+				<div class="row"></div>
+			</div>
+
+			<hr />
+
+			<div class="row">
+				<h3 id="resultDisplay">Result</h3>
+			</div>
 		</div>
-
-		<!-- Stopwatch Code - load first -->
-		<script src="assets/JS/stopwatch.js"></script>
-
-		<!-- Main Javascript - load last -->
-		<script src="assets/JS/main.js"></script>
 	</body>
 </html>

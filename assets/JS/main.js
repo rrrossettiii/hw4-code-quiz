@@ -1,4 +1,28 @@
+// Timer Function
+// - Utility*
+// - sets timer location; creates timer; starts timer;
+function startTimer() {
+	var timerOutput = document.querySelector("#timerOutput");
+	var timer = new stopwatch(timerOutput);
+	timer.start();}
+
+// Array Shuffler
+// - Utility*
+function shuffle(array) {
+	// Variables - how many remaining shuffles; output to back of array; random index;
+	var m = array.length, t, i;
+	// While there remain elements to shuffle…
+	while (m) {
+		// Pick a remaining element…
+		i = Math.floor(Math.random() * m--);
+		// And swap it with the current element.
+		t = array[m];
+		array[m] = array[i];
+		array[i] = t;}
+	return array;}
+
 // Displays
+// - output of the allQuestions data;
 timerDisplay = document.querySelector("#timerDisplay");
 startDisplay = document.querySelector("#startDisplay");
 questionDisplay = document.querySelector("#questionDisplay");
@@ -7,18 +31,12 @@ answerDisplay = document.querySelector("#answerDisplay");
 resultDisplay = document.querySelector("#resultDisplay");
 answerDisplayArray = document.querySelectorAll("#ans");
 
-// Timer Function*
-// - sets timer location; creates timer; starts timer;
-function startTimer() {
-	var timerOutput = document.querySelector("#timerOutput");
-	var timer = new stopwatch(timerOutput);
-	timer.start();
-}
-
 // Buttons
-startBtn.addEventListener("click", initiateQuiz);
+// - self explanatory;
 startBtn = document.querySelector("#startBtn");
+startBtn.addEventListener("click", initiateQuiz);
 nextBtn = document.querySelector("#nextBtn");
+nextBtn.addEventListener("click", nextQuestion);
 aBtn = document.querySelector("#ansA");
 bBtn = document.querySelector("#ansB");
 cBtn = document.querySelector("#ansC");
@@ -26,201 +44,94 @@ dBtn = document.querySelector("#ansD");
 answerButtonArray = document.querySelectorAll("#answerBtn");
 
 // Start Quiz
-//  - display timer; hide start button; display answer buttons; start timer;
-function startQuiz() {
-	timerDisplay.style.visibility = "visible";
-	startDisplay.style.display = "none";
-	answerDisplay.style.display = "block";
-	startTimer();
-	console.log("The Quiz has started.");
-}
-
-// score keeper
-// high scores
-
-// Questions
-// Q = The Question; A = The Answers; C = The Correct Choice; E = Explanation;
-var allQuestions = [
-	{
-		Q: "What was the first 1080p video on YouTube?",
-		A: [
-			'"Numa Numa"',
-			'The Muppets (singing) - "Bohemian Rhapsody"',
-			'Rick Astley - "Never Gonna Give You Up"',
-			'"Chocolate Rain"',
-		],
-		C: 'The Muppets (singing) - "Bohemian Rhapsody"',
-		E: "Is this the real life? Is this just fantasy?",
-	},
-	{
-		Q: "10-20% of U.S. power outages are caused by which of these factors?",
-		A: ["Kite Flying", "Pigeons", "Squirrels", "Toaster Ovens"],
-		C: "Squirrels",
-		E: "Squirrels never stop teething their whole lives.",
-	},
-	{
-		Q: 'Which of these is the "Powerhouse" of the cell?',
-		A: ["ATP", "Mitochondria", "Carbohydrates", "The Nucleus"],
-		C: "Mitochondria",
-		E: "MITOCHONDRIA IS THE POWERHOUSE OF THE CELL!",
-	},
-	{
-		Q: "What is the national animal of Scotland?",
-		A: [
-			"The Highland Cow",
-			"The Loch Ness Monster",
-			"The Bottle-nosed Dolphin",
-			"The Unicorn",
-		],
-		C: "The Unicorn",
-		E:
-			"In Celtic mythology, The Unicorn is a symbol of purity and innocence, as well as masculinity and power.",
-	},
-	{
-		Q: "The Washington Monument is capped with which metal?",
-		A: ["Aluminum", "Bronze", "Steel", "Tin"],
-		C: "Aluminum",
-		E:
-			"At the time it was built, in 1848, Aluminum was the most valuable metal.",
-	},
-	{
-		Q: "Which of these planets rotates clockwise?",
-		A: ["Earth", "Venus", "Jupiter", "Mars"],
-		C: "Venus",
-		E: "Venus is the only planet in our solar system that rotates clockwise.",
-	},
-	{
-		Q: "What are the caps on the end of shoelaces called?",
-		A: ["Aglet", "Grommet", "Eyelet", "Rivet"],
-		C: "Aglet",
-		E: "Aglets keep the fibers of the lace or cord from unraveling.",
-	},
-	{
-		Q: 'How much time is in a "jiffy?"',
-		A: [
-			"a few seconds.",
-			"3 Milliseconds",
-			"one trillionth of a second.",
-			"30 Seconds.",
-		],
-		C: "one trillionth of a second.",
-		E:
-			'A "Jiffy" is the amount of time it takes light to travel one centimeter in a vacuum.',
-	},
-	{
-		Q: "Who invented the word 'nerd?'",
-		A: ["Stephen Hawking", "Earnest Hemingway", "Julius Caesar", "Dr. Seuss"],
-		C: "Dr. Seuss",
-		E: "You Nerd!",
-	},
-	{
-		Q:
-			"If you open your eyes in a pitch-black room, the color you'll see is called ____ ?",
-		A: ["Vantablack", "Taupe", "Eigengrau", "Davy's gray"],
-		C: "Eigengrau",
-		E:
-			'Eigengrau is a german word meaning "own grey" and is the intrinsic color we see in the absence of all light.',
-	},
-];
-
-// Array Shuffler
-function shuffle(array) {
-	// Variables - how many remaining shuffles; output to back of array; random index;
-	var m = array.length,
-		t,
-		i;
-
-	// While there remain elements to shuffle…
-	while (m) {
-		// Pick a remaining element…
-		i = Math.floor(Math.random() * m--);
-
-		// And swap it with the current element.
-		t = array[m];
-		array[m] = array[i];
-		array[i] = t;
-	}
-	return array;
-}
-nextBtn.addEventListener("click", nextQuestion);
-
-function nextQuestion() {
-	numberOfQuestions--;
-	displayClear();
-	selectQuestion(numberOfQuestions);
-}
-//
-//
-//
-shuffledQuestions = shuffle(allQuestions);
-numberOfQuestions = shuffledQuestions.length - 1;
-//
+//  - set starting point; start display; shuffle questions; select question;
 function initiateQuiz() {
-	startQuiz();
-	selectQuestion(numberOfQuestions);
-}
+	indexStart = 0
+	displayStart();
+	shuffledQuestions = shuffle(allQuestions);
+	selectQuestion(indexStart);}
 
+// Select Question
+// - if indexStart is less than total # of questions...; 
 function selectQuestion(i) {
-	if (i > -1) {
-		correctAnswer = shuffledQuestions[i].C;
-		questionDisplay.textContent = shuffledQuestions[i].Q;
+	if (i < shuffledQuestions.length) {
+		// - display question; load explanation; shuffle answers; load correct answer; 
+		questionDisplay.textContent = `${i + 1}.) ` +  shuffledQuestions[i].Q;
 		explanationDisplay.textContent = shuffledQuestions[i].E;
 		shuffledAnswers = shuffle(shuffledQuestions[i].A);
+		correctAnswer = shuffledQuestions[i].C;
+		// loop - x answer text goes into x button text <span>; if clicked, check answer;
 		for (j = 0; j < shuffledAnswers.length; j++) {
 			answerDisplayArray[j].textContent = shuffledAnswers[j];
-			answerButtonArray.forEach(function (elem) {
-				elem.addEventListener("click", findAnswer);
-			});
+			answerButtonArray[j].addEventListener("click", checkAnswer);
 		}
 	}
 }
 
-function findAnswer(event) {
-	resultButton = event.currentTarget;
+// Check Answer
+// - whichever button triggered this event...;
+function checkAnswer(event) {
+	// - establish button; if button has correct answer...;
+	currentButton = event.currentTarget;
 	if (event.currentTarget.textContent.includes(correctAnswer)) {
+		// - clear display; display correct; *next button is loaded too*;
+		displayClear()
 		displayCorrect();
-		event.currentTarget.classList.remove("buttonWrong");
-		event.currentTarget.classList.add("buttonCorrect");
 	} else {
+		// - clear display; display incorrect; *next button is loaded too*;
+		displayClear()
 		displayIncorrect();
-		event.currentTarget.classList.remove("buttonCorrect");
-		event.currentTarget.classList.add("buttonWrong");
-	}
-}
+	}}
 
-// shuffle questions
-// display question
-// shuffle answers
-// display each answer
-// check answer
-// display result
-// show next button
-//
+// Next Question
+// - add to indexStart; clear display; initiate next question; 
+function nextQuestion() {
+	indexStart++;
+	displayClear();
+	selectQuestion(indexStart);}
 
+// Start Display
+// - hide startBtn; display answer buttons; display timer; start timer;
+function displayStart() {
+	startDisplay.style.display = "none";
+	answerDisplay.style.display = "block";
+	timerDisplay.style.visibility = "visible";
+	startTimer();}
+
+// Correct Display
+// - change result to 'Correct'; display results; display explanation; color button green; show nextBtn button; 
 function displayCorrect() {
-	// select #result; change #result; display #result;
-	nextBtn.style.visibility = "visible";
 	resultDisplay.textContent = "Correct";
 	resultDisplay.classList.add("correctChoice");
 	explanationDisplay.classList.add("correctChoice");
-}
+	currentButton.classList.add("buttonCorrect");
+	nextBtn.style.visibility = "visible";}
 
+// Wrong Display
+// -  change result to 'Wrong'; display results; display explanation; color button red; show nextBtn button; 
 function displayIncorrect() {
-	// select #result; change #result; display #result;
-	nextBtn.style.visibility = "visible";
 	resultDisplay.textContent = "Wrong";
 	resultDisplay.classList.add("wrongChoice");
 	explanationDisplay.classList.add("wrongChoice");
-}
+	currentButton.classList.add("buttonWrong");
+	nextBtn.style.visibility = "visible";}
 
+// Clear Display
 function displayClear() {
-	nextBtn.style.visibility = "hidden";
-	resultDisplay.classList.remove("correctChoice");
-	explanationDisplay.classList.remove("correctChoice");
+	// - clear result;
 	resultDisplay.classList.remove("wrongChoice");
+	resultDisplay.classList.remove("correctChoice");
+	// - clear explanation;
 	explanationDisplay.classList.remove("wrongChoice");
+	explanationDisplay.classList.remove("correctChoice");
+	// - hide next button;
+	nextBtn.style.visibility = "hidden";
+	// - clear answer buttons' event listener and class.
 	answerButtonArray.forEach(function (elem) {
+		elem.removeEventListener('click', checkAnswer)		
 		elem.classList.remove("buttonCorrect");
-		elem.classList.remove("buttonWrong");
-	});
-}
+		elem.classList.remove("buttonWrong");});}
+
+// score keeper
+// high scores
+

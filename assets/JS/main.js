@@ -5,6 +5,7 @@ questionDisplay = document.querySelector("#questionDisplay");
 explanationDisplay = document.querySelector("#explanationDisplay");
 answerDisplay = document.querySelector("#answerDisplay");
 resultDisplay = document.querySelector("#resultDisplay");
+answerDisplayArray = document.querySelectorAll("#ans");
 
 // Timer Function*
 // - sets timer location; creates timer; starts timer;
@@ -149,24 +150,28 @@ function initiateQuiz() {
 	startQuiz();
 	shuffledQuestions = shuffle(allQuestions);
 	for (i = 0; i < shuffledQuestions.length; i++) {
-		answerButtonArray.forEach(function (elem) {
-			elem.addEventListener("click", findAnswer);
-		});
-
-		function findAnswer(event) {
-			resultButton = event.currentTarget;
-			if (event.currentTarget.textContent.includes(correctAnswer)) {
-				displayCorrect();
-			} else {
-				displayIncorrect();
-			}
-		}
 		correctAnswer = shuffledQuestions[i].C;
 		questionDisplay.textContent = shuffledQuestions[i].Q;
 		explanationDisplay.textContent = shuffledQuestions[i].E;
 		shuffledAnswers = shuffle(shuffledQuestions[i].A);
 		for (j = 0; j < shuffledAnswers.length; j++) {
-			answerButtonArray[j].textContent = shuffledAnswers[j];
+			answerDisplayArray[j].textContent = shuffledAnswers[j];
+			answerButtonArray.forEach(function (elem) {
+				elem.addEventListener("click", findAnswer);
+			});
+
+			function findAnswer(event) {
+				resultButton = event.currentTarget;
+				if (event.currentTarget.textContent.includes(correctAnswer)) {
+					displayCorrect();
+					event.currentTarget.classList.remove("buttonWrong");
+					event.currentTarget.classList.add("buttonCorrect");
+				} else {
+					displayIncorrect();
+					event.currentTarget.classList.remove("buttonCorrect");
+					event.currentTarget.classList.add("buttonWrong");
+				}
+			}
 		}
 	}
 }
@@ -183,15 +188,17 @@ function initiateQuiz() {
 function displayCorrect() {
 	// select #result; change #result; display #result;
 	resultDisplay.textContent = "Correct";
-	resultDisplay.style.color = "green";
-	resultDisplay.style.visibility = "visible";
-	explanationDisplay.style.visibility = "visible";
+	resultDisplay.classList.remove("wrongChoice");
+	explanationDisplay.classList.remove("wrongChoice");
+	resultDisplay.classList.add("correctChoice");
+	explanationDisplay.classList.add("correctChoice");
 }
 
 function displayIncorrect() {
 	// select #result; change #result; display #result;
 	resultDisplay.textContent = "Wrong";
-	resultDisplay.style.color = "red";
-	resultDisplay.style.visibility = "visible";
-	explanationDisplay.style.visibility = "visible";
+	resultDisplay.classList.remove("correctChoice");
+	explanationDisplay.classList.remove("correctChoice");
+	resultDisplay.classList.add("wrongChoice");
+	explanationDisplay.classList.add("wrongChoice");
 }

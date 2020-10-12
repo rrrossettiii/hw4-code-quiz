@@ -61,7 +61,7 @@ function selectQuestion(i) {
 		explanationDisplay.textContent = shuffledQuestions[i].E;
 		shuffledAnswers = shuffle(shuffledQuestions[i].A);
 		correctAnswer = shuffledQuestions[i].C;
-		// loop - x answer text goes into x button text <span>; if clicked, check answer;
+		// loop - j answer text goes into j button text <span>; if clicked, check answer;
 		for (j = 0; j < shuffledAnswers.length; j++) {
 			answerDisplayArray[j].textContent = shuffledAnswers[j];
 			answerButtonArray[j].addEventListener("click", checkAnswer);}}}
@@ -78,7 +78,14 @@ function checkAnswer(event) {
 	} else {
 		// - clear display; display incorrect; *next button is loaded too*;
 		displayClear()
-		displayIncorrect();}}
+		displayIncorrect()
+		for (i = 0; i < answerDisplayArray.length; i++){
+			// loop - shows correct answer; shows wrong answers;
+			if (answerDisplayArray[i].textContent.includes(correctAnswer)){
+				answerButtonArray[i].classList.add('buttonCorrect')
+			} else {
+				answerButtonArray[i].classList.add('buttonWrong')
+			}};}}
 
 // Next Question
 // - add to indexStart; clear display; initiate next question; 
@@ -92,7 +99,7 @@ function nextQuestion() {
 	if (indexStart === shuffledQuestions.length){
 		timer.stop()
 		answerDisplay.style.visibility = 'hidden'
-		questionDisplay.textContent = 'You Win!'
+		questionDisplay.textContent = 'Highscore'
 		function win(){
 		}
 	} else{selectQuestion(indexStart);}

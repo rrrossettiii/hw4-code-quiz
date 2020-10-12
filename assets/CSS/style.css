@@ -5,9 +5,32 @@
 	font-family: "Major Mono Display", monospace;
 	text-align: right;
 	white-space: nowrap;
-	margin: 12px;
-	padding: 6px 12px;
+	margin: 12px 0 0 0;
 	visibility: hidden;
+}
+
+#heartDisplay {
+	margin-bottom: 12px;
+	visibility: hidden;
+}
+
+#nameDisplay {
+	display: none;
+}
+
+.display {
+	display: block !important;
+}
+
+.hide {
+	display: none !important;
+}
+
+#nameForm {
+	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 /* Questions
@@ -27,7 +50,7 @@
 	display: block;
 	margin-left: 12px;
 	letter-spacing: 0;
-	visibility: hidden;
+	display: none;
 }
 
 #resultDisplay {
@@ -54,6 +77,7 @@
 	font-family: "Major Mono Display", monospace;
 	font-size: xx-large;
 	height: 86px;
+	/* display: none; */
 }
 
 #nextBtn {
@@ -68,12 +92,11 @@
 
 .wrongChoice {
 	color: red !important;
-	visibility: visible !important;
 }
 
 .correctChoice {
 	color: green !important;
-	visibility: visible !important;
+	display: block !important;
 }
 
 .buttonCorrect {

@@ -24,7 +24,12 @@ function shuffle(array) {
 // Displays
 // - output of the allQuestions data;
 timerDisplay = document.querySelector("#timerDisplay");
+heartDisplay = document.querySelector("#heartDisplay");
+heart1 = document.querySelector('#heart1');
+heart2 = document.querySelector('#heart2');
+heart3 = document.querySelector('#heart3');
 startDisplay = document.querySelector("#startDisplay");
+nameDisplay = document.querySelector('#nameDisplay')
 questionDisplay = document.querySelector("#questionDisplay");
 explanationDisplay = document.querySelector("#explanationDisplay");
 answerDisplay = document.querySelector("#answerDisplay");
@@ -34,7 +39,9 @@ answerDisplayArray = document.querySelectorAll("#ans");
 // Buttons
 // - self explanatory;
 startBtn = document.querySelector("#startBtn");
-startBtn.addEventListener("click", initiateQuiz);
+startBtn.addEventListener("click", playerName);
+nameBtn = document.querySelector("#nameBtn")
+nameBtn.addEventListener("click", newName)
 nextBtn = document.querySelector("#nextBtn");
 nextBtn.addEventListener("click", nextQuestion);
 aBtn = document.querySelector("#ansA");
@@ -46,19 +53,21 @@ answerButtonArray = document.querySelectorAll("#answerBtn");
 // Start Quiz
 //  - set starting point; start display; shuffle questions; select question;
 function initiateQuiz() {
-	// 
-	indexStart = 0
+	nameDisplay.classList.add('hide')
+	hearts = 3
+	currentQuestion = 0
 	displayStart();
 	shuffledQuestions = shuffle(allQuestions);
-	selectQuestion(indexStart);}
+	selectQuestion(currentQuestion);}
 
 // Select Question
-// - if indexStart is less than total # of questions...; 
+// - if currentQuestion is less than total # of questions...; 
 function selectQuestion(i) {
 	if (i < shuffledQuestions.length) {
 		// - display question; load explanation; shuffle answers; load correct answer; 
 		questionDisplay.textContent = `${i + 1}.) ` +  shuffledQuestions[i].Q;
 		explanationDisplay.textContent = shuffledQuestions[i].E;
+		answerDisplay.style.visibility = 'visible'
 		shuffledAnswers = shuffle(shuffledQuestions[i].A);
 		correctAnswer = shuffledQuestions[i].C;
 		// loop - j answer text goes into j button text <span>; if clicked, check answer;
@@ -72,51 +81,47 @@ function checkAnswer(event) {
 	// - establish button; if button has correct answer...;
 	currentButton = event.currentTarget;
 	if (event.currentTarget.textContent.includes(correctAnswer)) {
-		// - clear display; display correct; *next button is loaded too*;
-		displayClear()
+		// - clear display; display correct; *next button is loaded too*
 		displayCorrect();
+		answerButtonArray.forEach(function (elem){
+			elem.removeEventListener('click', checkAnswer)	
+		})
 	} else {
-		// - clear display; display incorrect; *next button is loaded too*;
-		displayClear()
+		// - subtract from hearts; clear display; remove 'click'; *next button is loaded too*;
+		hearts--;
+		console.log(hearts);
+		health()
 		displayIncorrect()
-		for (i = 0; i < answerDisplayArray.length; i++){
-			// loop - shows correct answer; shows wrong answers;
-			if (answerDisplayArray[i].textContent.includes(correctAnswer)){
-				answerButtonArray[i].classList.add('buttonCorrect')
-			} else {
-				answerButtonArray[i].classList.add('buttonWrong')
-			}};}}
+		currentButton.removeEventListener('click', checkAnswer)
+	;}}
 
 // Next Question
-// - add to indexStart; clear display; initiate next question; 
+// - add to currentQuestion; clear display; initiate next question; 
 function nextQuestion() {
-	indexStart++;
-	if (indexStart === shuffledQuestions.length - 1){
-		nextBtn.textContent = 'Finish'
-		// 
-	}
+	currentQuestion++;
 	displayClear();
-	if (indexStart === shuffledQuestions.length){
-		timer.stop()
-		answerDisplay.style.visibility = 'hidden'
-		questionDisplay.textContent = 'Highscore'
-		function win(){
-		}
-	} else{selectQuestion(indexStart);}
+	if (currentQuestion === shuffledQuestions.length - 1){
+		nextBtn.textContent = 'Finish'
+	}
+	if (currentQuestion === shuffledQuestions.length){
+		displayRecords()
+	} else{selectQuestion(currentQuestion);}
 }
 
 // Start Display
 // - hide startBtn; display answer buttons; display timer; start timer;
 function displayStart() {
-	startDisplay.style.display = "none";
+	playerName()
 	answerDisplay.style.display = "block";
 	timerDisplay.style.visibility = "visible";
+	heartDisplay.style.visibility = "visible";
 	startTimer();}
 
 // Correct Display
 // - change result to 'Correct'; display results; display explanation; color button green; show nextBtn button; 
 function displayCorrect() {
 	resultDisplay.textContent = "Correct";
+	resultDisplay.style.visibility = 'visible'
 	resultDisplay.classList.add("correctChoice");
 	explanationDisplay.classList.add("correctChoice");
 	currentButton.classList.add("buttonCorrect");
@@ -126,14 +131,14 @@ function displayCorrect() {
 // -  change result to 'Wrong'; display results; display explanation; color button red; show nextBtn button; 
 function displayIncorrect() {
 	resultDisplay.textContent = "Wrong";
+	resultDisplay.style.visibility = 'visible'
 	resultDisplay.classList.add("wrongChoice");
-	explanationDisplay.classList.add("wrongChoice");
-	currentButton.classList.add("buttonWrong");
-	nextBtn.style.visibility = "visible";}
+	currentButton.classList.add("buttonWrong");}
 
 // Clear Display
 function displayClear() {
 	// - clear result;
+	resultDisplay.style.visibility = 'hidden'
 	resultDisplay.classList.remove("wrongChoice");
 	resultDisplay.classList.remove("correctChoice");
 	// - clear explanation;
@@ -141,13 +146,75 @@ function displayClear() {
 	explanationDisplay.classList.remove("correctChoice");
 	// - hide next button;
 	nextBtn.style.visibility = "hidden";
-	// - clear answer buttons' event listener and class.
+	// - clear answer buttons' event listener and classes.
+	answerDisplay.style.visibility = 'hidden'
 	answerButtonArray.forEach(function (elem) {
 		elem.removeEventListener('click', checkAnswer)		
 		elem.classList.remove("buttonCorrect");
 		elem.classList.remove("buttonWrong");});}
 
+// Records
+function displayRecords(){
+	timer.stop()
+	displayClear()
+	timerDisplay.style.visibility = "hidden"
+	answerDisplay.style.visibility = 'hidden'
+	explanationDisplay.textContent = 'Your Time: ' + timerOutput.textContent
+	explanationDisplay.style.visibility = 'visible'
+	questionDisplay.textContent = 'Records'
+	
+}
 
-// score keeper
-// high scores
+// Game Over
+function gameOver(){
+	heartDisplay.style.visibility = "hidden"
+	timerDisplay.style.visibility = "hidden"
+	questionDisplay.textContent = 'Game Over'
+	nextBtn.removeEventListener("click", nextQuestion);
+	nextBtn.textContent = 'retry'
+	nextBtn.style.visibility = 'visible'
+	nextBtn.addEventListener("click", function(){
+		location.reload()
+		return false
+	});
+}
 
+// Player Name
+function playerName(){
+	startDisplay.style.display = "none";
+	nameDisplay.classList.add("display")
+}
+
+function newName() {
+	event.preventDefault()
+	userName = document.getElementById("userInput").value;
+	initiateQuiz()
+}
+
+// Health
+function health(){
+	if (hearts == 2){
+		heart1.style.display = 'none'
+	}
+	if (hearts == 1){
+		heart2.style.display = 'none'
+	}
+	if (hearts == 0){
+		timer.stop()
+		heart3.style.visibility = 'hidden'
+		for (i = 0; i < answerDisplayArray.length; i++){
+			if (answerDisplayArray[i].textContent.includes(correctAnswer)){
+				answerButtonArray[i].classList.add('buttonCorrect')
+				explanationDisplay.classList.add("correctChoice");
+			} else {
+				answerButtonArray[i].classList.add('buttonWrong')
+			}
+			answerButtonArray[i].removeEventListener('click', checkAnswer)
+		}
+
+	}
+	if (hearts == -1){
+		displayClear()
+		gameOver()
+	}
+}

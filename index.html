@@ -38,6 +38,33 @@
 							Time: <span id="timerOutput">00 : 00 . 00</span>
 						</p>
 					</div>
+					<div id="heartDisplay" class="twelve columns">
+						<!-- Heart Display -->
+						<img
+							id="heart1"
+							class="u-pull-right"
+							src="assets/images/130px-Heart.png"
+							alt="heart"
+							height="36"
+							width="36"
+						/>
+						<img
+							id="heart2"
+							class="u-pull-right"
+							src="assets/images/130px-Heart.png"
+							alt="heart"
+							height="36"
+							width="36"
+						/>
+						<img
+							id="heart3"
+							class="u-pull-right"
+							src="assets/images/130px-Heart.png"
+							alt="heart"
+							height="36"
+							width="36"
+						/>
+					</div>
 				</div>
 
 				<div class="row">
@@ -51,6 +78,7 @@
 					<div class="row">
 						<!-- Explanation Display -->
 						<h4 id="explanationDisplay">Explanation</h4>
+						<!-- Next Button -->
 						<button id="nextBtn" class="button-primary">Next</button>
 					</div>
 				</div>
@@ -70,19 +98,34 @@
 				</div>
 			</div>
 
+			<!-- Name Form -->
+			<div id="nameDisplay" class="container">
+				<div class="row">
+					<div class="twelve columns">
+						<form id="nameForm">
+							<label for="nameForm">Please enter you name: </label>
+							<input type="text" id="userInput" />
+							<button id="nameBtn" class="button-primary" type="submit">
+								Begin Quiz
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
 			<!-- Answer Display -->
 			<div id="answerDisplay" class="container">
 				<div class="row">
 					<div class="six columns">
 						<!-- A Button -->
 						<button id="answerBtn" class="button-primary u-full-width">
-							A.) <span id="ans"></span>
+							A) - <span id="ans"></span>
 						</button>
 					</div>
 					<div class="six columns">
 						<!-- B Button -->
 						<button id="answerBtn" class="button-primary u-full-width">
-							B.) <span id="ans"></span>
+							B) - <span id="ans"></span>
 						</button>
 					</div>
 				</div>
@@ -90,13 +133,13 @@
 					<div class="six columns">
 						<!-- C Button -->
 						<button id="answerBtn" class="button-primary u-full-width">
-							C.) <span id="ans"></span>
+							C) - <span id="ans"></span>
 						</button>
 					</div>
 					<div class="six columns">
 						<!-- D Button -->
 						<button id="answerBtn" class="button-primary u-full-width">
-							D.) <span id="ans"></span>
+							D) - <span id="ans"></span>
 						</button>
 					</div>
 				</div>

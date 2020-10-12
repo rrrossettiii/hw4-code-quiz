@@ -75,7 +75,7 @@ var allQuestions = [
 	},
 	{
 		Q:
-			"If you open your eyes in a pitch-black room, the color you'll see is called ____ ?",
+			"If you open your eyes in a pitch-black room, the color you'll see is called _?",
 		A: ["Vantablack", "Taupe", "Eigengrau", "Davy's gray"],
 		C: "Eigengrau",
 		E:

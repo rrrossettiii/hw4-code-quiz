@@ -21,20 +21,25 @@ function shuffle(array) {
 		array[i] = t;}
 	return array;}
 
+// Records
+// 
+const userRecords = JSON.parse(localStorage.getItem("userRecords")) || [];
+
 // Displays
 // - output of the allQuestions data;
-timerDisplay = document.querySelector("#timerDisplay");
-heartDisplay = document.querySelector("#heartDisplay");
-heart1 = document.querySelector('#heart1');
-heart2 = document.querySelector('#heart2');
-heart3 = document.querySelector('#heart3');
 startDisplay = document.querySelector("#startDisplay");
+recordDisplay = document.querySelector('#recordDisplay')
 nameDisplay = document.querySelector('#nameDisplay')
 questionDisplay = document.querySelector("#questionDisplay");
 explanationDisplay = document.querySelector("#explanationDisplay");
 answerDisplay = document.querySelector("#answerDisplay");
 resultDisplay = document.querySelector("#resultDisplay");
 answerDisplayArray = document.querySelectorAll("#ans");
+timerDisplay = document.querySelector("#timerDisplay");
+heartDisplay = document.querySelector("#heartDisplay");
+heart1 = document.querySelector('#heart1');
+heart2 = document.querySelector('#heart2');
+heart3 = document.querySelector('#heart3');
 
 // Buttons
 // - self explanatory;
@@ -43,7 +48,7 @@ startBtn.addEventListener("click", playerName);
 nameBtn = document.querySelector("#nameBtn")
 nameBtn.addEventListener("click", newName)
 nextBtn = document.querySelector("#nextBtn");
-nextBtn.addEventListener("click", nextQuestion);
+// nextBtn.addEventListener("click", nextQuestion);
 aBtn = document.querySelector("#ansA");
 bBtn = document.querySelector("#ansB");
 cBtn = document.querySelector("#ansC");
@@ -64,6 +69,7 @@ function initiateQuiz() {
 // - if currentQuestion is less than total # of questions...; 
 function selectQuestion(i) {
 	if (i < shuffledQuestions.length) {
+		nextBtn.addEventListener("click", nextQuestion);
 		// - display question; load explanation; shuffle answers; load correct answer; 
 		questionDisplay.textContent = `${i + 1}.) ` +  shuffledQuestions[i].Q;
 		explanationDisplay.textContent = shuffledQuestions[i].E;
@@ -145,6 +151,7 @@ function displayClear() {
 	explanationDisplay.classList.remove("wrongChoice");
 	explanationDisplay.classList.remove("correctChoice");
 	// - hide next button;
+	nextBtn.removeEventListener("click", nextQuestion);
 	nextBtn.style.visibility = "hidden";
 	// - clear answer buttons' event listener and classes.
 	answerDisplay.style.visibility = 'hidden'
@@ -158,19 +165,31 @@ function displayRecords(){
 	timer.stop()
 	displayClear()
 	timerDisplay.style.visibility = "hidden"
+	heartDisplay.style.visibility = "hidden"
 	answerDisplay.style.visibility = 'hidden'
-	explanationDisplay.textContent = 'Your Time: ' + timerOutput.textContent
-	explanationDisplay.style.visibility = 'visible'
+	explanationDisplay.textContent = `${userName}\nTime: ${timerOutput.textContent}`
+	explanationDisplay.style.display = 'block'
 	questionDisplay.textContent = 'Records'
-	
+	nextBtn.addEventListener("click", saveData)
+	nextBtn.textContent = "Submit"
+	nextBtn.style.visibility = "visible"
+	recordDisplay.style.display = 'block'
+	userRecords.forEach(function(){
+		console.log(this);
+	})
 }
 
 // Game Over
 function gameOver(){
+	recordDisplay.style.display = 'block'
+	userRecords.forEach(function(){
+		console.log(this);
+	})
 	heartDisplay.style.visibility = "hidden"
 	timerDisplay.style.visibility = "hidden"
 	questionDisplay.textContent = 'Game Over'
-	nextBtn.removeEventListener("click", nextQuestion);
+	answerDisplay.style.visibility = 'hidden'
+	explanationDisplay.style.display = 'none'
 	nextBtn.textContent = 'retry'
 	nextBtn.style.visibility = 'visible'
 	nextBtn.addEventListener("click", function(){
@@ -202,6 +221,8 @@ function health(){
 	if (hearts == 0){
 		timer.stop()
 		heart3.style.visibility = 'hidden'
+		console.log('wtf');
+		nextBtn.addEventListener("click", gameOver)
 		for (i = 0; i < answerDisplayArray.length; i++){
 			if (answerDisplayArray[i].textContent.includes(correctAnswer)){
 				answerButtonArray[i].classList.add('buttonCorrect')
@@ -210,11 +231,26 @@ function health(){
 				answerButtonArray[i].classList.add('buttonWrong')
 			}
 			answerButtonArray[i].removeEventListener('click', checkAnswer)
+			nextBtn.addEventListener("click", gameOver)
+			nextBtn.textContent = 'Finish'
+			nextBtn.style.visibility = "visible"
 		}
 
 	}
-	if (hearts == -1){
-		displayClear()
-		gameOver()
-	}
+
+}
+
+// Save Data
+function saveData(){
+const score = {
+	name: userName,
+	time: timerOutput.textContent,
+	userHealth: hearts,
+	sort: mTime
+};
+userRecords.push(score)
+userRecords.sort((a,b) => a.sort - b.sort)
+userRecords.splice(5)
+console.log(userRecords);
+localStorage.setItem('userRecords', JSON.stringify(userRecords))
 }

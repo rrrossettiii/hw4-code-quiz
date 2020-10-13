@@ -78,6 +78,7 @@ function stopwatch(elem) {
 	// - checks if Stopwatch() is 'on'; disables 'interval'; makes interval 'null'; turns Stopwatch() 'off';
 	this.stop = function () {
 		if (this.isOn) {
+			mTime = time
 			clearInterval(interval);
 			interval = null;
 			this.isOn = false;

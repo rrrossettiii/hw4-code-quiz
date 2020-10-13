@@ -5,8 +5,12 @@
 	font-family: "Major Mono Display", monospace;
 	text-align: right;
 	white-space: nowrap;
-	margin: 12px 0 0 0;
+	margin: 0;
 	visibility: hidden;
+}
+
+#recordDisplay {
+	display: none;
 }
 
 #heartDisplay {
@@ -16,6 +20,18 @@
 
 #nameDisplay {
 	display: none;
+}
+
+label {
+	font-family: "Major Mono Display", monospace;
+}
+
+.visible {
+	visibility: visible;
+}
+
+.hidden {
+	visibility: hidden;
 }
 
 .display {
@@ -38,7 +54,7 @@
 #questionDisplay {
 	font-family: "Major Mono Display", monospace;
 	text-align: center;
-	margin-top: 12px;
+	margin-top: 24px;
 }
 
 /* Explanations
@@ -51,6 +67,7 @@
 	margin-left: 12px;
 	letter-spacing: 0;
 	display: none;
+	white-space: pre-wrap;
 }
 
 #resultDisplay {
